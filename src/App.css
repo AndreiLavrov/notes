@@ -24,6 +24,10 @@
   padding: 10px 0 0;
 }
 
+.noteItem.active {
+  background-color: dodgerblue;
+}
+
 .activeNote {
   padding: 10px;
   width: 100%;

@@ -5,6 +5,7 @@ import { INote } from 'src/models/INote';
 interface NotesState {
   notes: INote[];
   activeNote: INote;
+  searchValue: string,
   isLoading: boolean;
   error: string;
 }
@@ -20,6 +21,7 @@ const initialNoteData: INote = {
 const initialState: NotesState = {
   notes: [],
   activeNote: initialNoteData,
+  searchValue: '',
   isLoading: false,
   error: '',
 };
@@ -57,6 +59,9 @@ export const notesSlice = createSlice({
     },
     setChosenNoteAsActive(state, action: PayloadAction<INote>) {
       state.activeNote = action.payload;
+    },
+    setSearchValue(state, action: PayloadAction<string>) {
+      state.searchValue = action.payload;
     },
   },
   extraReducers: {},

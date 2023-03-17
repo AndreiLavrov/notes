@@ -1,16 +1,26 @@
-import React from 'react';
-
-import { useAppSelector } from 'src/hooks/redux';
+import React, { useEffect, useState } from 'react';
 import NoteItem from 'src/components/NoteItem';
 
+import { useAppSelector } from 'src/hooks/redux';
+import { INote } from 'src/models/INote';
+
 function NotesList() {
-  const { notes, isLoading, error } = useAppSelector(state => state.notesReducer);
+  const { notes, isLoading, error, searchValue } = useAppSelector(state => state.notesReducer);
+  const [state, setState] = useState<INote[]>([]);
+
+  useEffect(() => {
+    let filteredNotes = notes;
+    if (searchValue !== '') {
+      filteredNotes = notes.filter((item) => item.title.includes(searchValue) || item.description.includes(searchValue));
+    }
+    setState(filteredNotes);
+  }, [notes, searchValue]);
 
   return (
     <div className="notesList">
-      {notes.map(item => <NoteItem key={item.id} item={item} /> )}
+      {state.map(item => <NoteItem key={item.id} item={item}/>)}
 
-      {notes.length === 0 && !isLoading && !error &&(
+      {state.length === 0 && !isLoading && !error && (
         <h3>List is empty</h3>
       )}
 

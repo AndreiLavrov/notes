@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 import { INote } from 'src/models/INote';
 import { notesSlice } from 'src/store/reducers/NotesSlice';
-import { useAppDispatch } from 'src/hooks/redux';
+import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
 
 interface INoteItemProps {
   item: INote;
@@ -11,6 +11,7 @@ interface INoteItemProps {
 const NoteItem: FC<INoteItemProps> = ({ item }) => {
   const dispatch = useAppDispatch();
   const { setChosenNoteAsActive } = notesSlice.actions;
+  const { activeNote } = useAppSelector(state => state.notesReducer);
 
   const setActiveNoteListener = () => {
     dispatch(setChosenNoteAsActive({
@@ -23,7 +24,7 @@ const NoteItem: FC<INoteItemProps> = ({ item }) => {
   };
 
   return (
-    <div className="noteItem" onClick={setActiveNoteListener}>
+    <div className={`noteItem ${activeNote.id === item.id ? 'active' : ''}`} onClick={setActiveNoteListener}>
       <div>{item.id}</div>
       <div>{item.title}</div>
       <div>{item.description}</div>
