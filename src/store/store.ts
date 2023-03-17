@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import notesReducer from '../store/reducers/NotesSlice';
+import notesReducer from 'src/store/reducers/NotesSlice';
 
 const rootReducer = combineReducers({
   notesReducer,
