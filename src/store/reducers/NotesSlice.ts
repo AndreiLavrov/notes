@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { serveLocalStorage } from 'src/services/serveLocalStorage';
 
 import { INote } from 'src/models/INote';
 
@@ -18,8 +19,14 @@ const initialNoteData: INote = {
   author: 'admin',
 };
 
+// use LS for supporting keeping of data for user(during we don't have BE)
+const {
+  setToLocStorage,
+  getFromLocStorage,
+} = serveLocalStorage();
+
 const initialState: NotesState = {
-  notes: [],
+  notes: getFromLocStorage(),
   activeNote: initialNoteData,
   searchValue: '',
   isLoading: false,
@@ -31,24 +38,32 @@ export const notesSlice = createSlice({
   initialState,
   reducers: {
     deleteActiveNoteFromList(state) {
-      state.notes = state.notes.filter(({ id }) => id !== state.activeNote.id);
+      const updatedNotes = state.notes.filter(({ id }) => id !== state.activeNote.id);
+      state.notes = updatedNotes;
       state.activeNote = {
         ...initialNoteData,
         id: Date.now(),
         date: String(Date.now()),
       };
+
+      setToLocStorage(updatedNotes);
     },
     saveActiveNoteToList(state, action: PayloadAction<INote>) {
+      let updatedNotes = [];
       if (state.notes.some((item) => item.id === action.payload.id)) {
-        state.notes = state.notes.map((item) => item.id === action.payload.id ? action.payload : item);
+        updatedNotes = state.notes.map((item) => item.id === action.payload.id ? action.payload : item);
+        state.notes = updatedNotes;
       } else {
-        state.notes.push(action.payload);
+        updatedNotes = [...state.notes, action.payload];
+        state.notes = updatedNotes;
       }
       state.activeNote = {
         ...initialNoteData,
         id: Date.now(),
         date: String(Date.now()),
       };
+
+      setToLocStorage(updatedNotes);
     },
     setInitialNoteAsActive(state) {
       state.activeNote = {
