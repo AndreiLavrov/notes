@@ -10,7 +10,6 @@ export const serveDate = (): IServeLocStorageResults => {
     const date = new Date;
     return date.toLocaleString("en-US", options);
   };
-
   const getDateNow = () => Date.now();
 
   return {

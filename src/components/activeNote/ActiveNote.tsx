@@ -10,7 +10,7 @@ const initialState: INote = {
   id: 1,
   title: 'test',
   description: 'test',
-  date: `${Date.now()}`,
+  date: '',
   author: 'admin',
 };
 
@@ -37,7 +37,7 @@ function ActiveNote() {
   };
 
   return (
-    <div className={styles.activeNote}>
+    <section className={styles.activeNote}>
       <div className={styles.date}>{state.date}</div>
 
       <TextField
@@ -64,7 +64,7 @@ function ActiveNote() {
       <Stack direction="row" spacing={2} >
         <Button variant="contained" color="success" onClick={onSaveListener}>Save</Button>
       </Stack>
-    </div>
+    </section>
   );
 }
 

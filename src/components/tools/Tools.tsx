@@ -19,7 +19,6 @@ function Tools() {
 
   const deleteNoteListener = () => {
     const shouldDelete = window.confirm('Are you sure? Once deleted, this note will be lost.')
-    console.log('shouldDelete', shouldDelete);
     if (!shouldDelete) return;
     dispatch(deleteActiveNoteFromList());
   };

@@ -18,7 +18,7 @@ function NotesList() {
   }, [notes, searchValue]);
 
   return (
-    <div className={styles.notesList}>
+    <section className={styles.notesList}>
       {state.map(item => <NoteItem key={item.id} item={item}/>)}
 
       {state.length === 0 && !isLoading && !error && (
@@ -30,7 +30,7 @@ function NotesList() {
        <>{isLoading && <h1>Идет загрузка...</h1>}</>
        <>{error && <h1>{error}</h1>}</>
        */}
-    </div>
+    </section>
   );
 }
 

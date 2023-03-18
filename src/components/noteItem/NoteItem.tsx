@@ -14,13 +14,7 @@ const NoteItem: FC<INoteItemProps> = ({ item }) => {
   const { activeNote } = useAppSelector(state => state.notesReducer);
 
   const setActiveNoteListener = () => {
-    dispatch(setChosenNoteAsActive({
-      id: item.id,
-      title: item.title,
-      description: item.description,
-      date: item.date,
-      author: item.author,
-    }));
+    dispatch(setChosenNoteAsActive(item));
   };
 
   const time = item.date.split('at ')[1];

@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import DateTimeFormatOptions = Intl.DateTimeFormatOptions;
+
 import { serveDate } from 'src/services/serveDate';
 import { serveLocalStorage } from 'src/services/serveLocalStorage';
-
 import { INote } from 'src/models/INote';
-import DateTimeFormatOptions = Intl.DateTimeFormatOptions;
 
 interface NotesState {
   notes: INote[];
@@ -21,7 +21,14 @@ const options: DateTimeFormatOptions = {
   minute: 'numeric',
   second: 'numeric',
 }
+
 const { getDate, getDateNow } = serveDate();
+
+// use LS for supporting keeping of data for user(during we don't have BE)
+const {
+  setToLocStorage,
+  getFromLocStorage,
+} = serveLocalStorage();
 
 const initialNoteData: INote = {
   id: getDateNow(),
@@ -30,12 +37,6 @@ const initialNoteData: INote = {
   date: getDate(options),
   author: 'admin',
 };
-
-// use LS for supporting keeping of data for user(during we don't have BE)
-const {
-  setToLocStorage,
-  getFromLocStorage,
-} = serveLocalStorage();
 
 const initialState: NotesState = {
   notes: getFromLocStorage(),
