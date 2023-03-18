@@ -23,12 +23,14 @@ const NoteItem: FC<INoteItemProps> = ({ item }) => {
     }));
   };
 
+  const time = item.date.split('at ')[1];
+
   return (
     <div className={activeNote.id === item.id ? styles.noteItemActive : styles.noteItem} onClick={setActiveNoteListener}>
-      <h3>{item.title}</h3>
+      <h3>{item.title || '...'}</h3>
       <div className={styles.descWrapper}>
-        <span>{item.date}</span>
-        <span className={styles.description}>{item.description}</span>
+        <span>{time || '...'}</span>
+        <span className={styles.description}>{item.description || '...'}</span>
       </div>
     </div>
   );

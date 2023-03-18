@@ -1,7 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { serveDate } from 'src/services/serveDate';
 import { serveLocalStorage } from 'src/services/serveLocalStorage';
 
 import { INote } from 'src/models/INote';
+import DateTimeFormatOptions = Intl.DateTimeFormatOptions;
 
 interface NotesState {
   notes: INote[];
@@ -11,11 +13,21 @@ interface NotesState {
   error: string;
 }
 
+const options: DateTimeFormatOptions = {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  hour: 'numeric',
+  minute: 'numeric',
+  second: 'numeric',
+}
+const { getDate, getDateNow } = serveDate();
+
 const initialNoteData: INote = {
-  id: Date.now(),
+  id: getDateNow(),
   title: 'default title',
   description: 'default description',
-  date: `${Date.now()}`,
+  date: getDate(options),
   author: 'admin',
 };
 
@@ -42,8 +54,8 @@ export const notesSlice = createSlice({
       state.notes = updatedNotes;
       state.activeNote = {
         ...initialNoteData,
-        id: Date.now(),
-        date: String(Date.now()),
+        id: getDateNow(),
+        date: getDate(options),
       };
 
       setToLocStorage(updatedNotes);
@@ -59,8 +71,8 @@ export const notesSlice = createSlice({
       }
       state.activeNote = {
         ...initialNoteData,
-        id: Date.now(),
-        date: String(Date.now()),
+        id: getDateNow(),
+        date: getDate(options),
       };
 
       setToLocStorage(updatedNotes);
@@ -68,8 +80,8 @@ export const notesSlice = createSlice({
     setInitialNoteAsActive(state) {
       state.activeNote = {
         ...initialNoteData,
-        id: Date.now(),
-        date: String(Date.now()),
+        id: getDateNow(),
+        date: getDate(options),
       };
     },
     setChosenNoteAsActive(state, action: PayloadAction<INote>) {
