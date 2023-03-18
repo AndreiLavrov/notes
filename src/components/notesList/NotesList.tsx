@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import NoteItem from 'src/components/NoteItem';
+import NoteItem from 'src/components/noteItem/NoteItem';
 
 import { useAppSelector } from 'src/hooks/redux';
 import { INote } from 'src/models/INote';
+import styles from './NotesList.module.scss';
 
 function NotesList() {
   const { notes, isLoading, error, searchValue } = useAppSelector(state => state.notesReducer);
@@ -17,11 +18,11 @@ function NotesList() {
   }, [notes, searchValue]);
 
   return (
-    <div className="notesList">
+    <div className={styles.notesList}>
       {state.map(item => <NoteItem key={item.id} item={item}/>)}
 
       {state.length === 0 && !isLoading && !error && (
-        <h3>List is empty</h3>
+        <h4 className={styles.emptyListTitle}>List is empty...</h4>
       )}
 
       {/*

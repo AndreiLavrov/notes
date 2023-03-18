@@ -3,11 +3,11 @@ import React, { FC } from 'react';
 import { INote } from 'src/models/INote';
 import { notesSlice } from 'src/store/reducers/NotesSlice';
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
+import styles from './NoteItem.module.scss';
 
 interface INoteItemProps {
   item: INote;
 }
-
 const NoteItem: FC<INoteItemProps> = ({ item }) => {
   const dispatch = useAppDispatch();
   const { setChosenNoteAsActive } = notesSlice.actions;
@@ -24,12 +24,12 @@ const NoteItem: FC<INoteItemProps> = ({ item }) => {
   };
 
   return (
-    <div className={`noteItem ${activeNote.id === item.id ? 'active' : ''}`} onClick={setActiveNoteListener}>
-      <div>{item.id}</div>
-      <div>{item.title}</div>
-      <div>{item.description}</div>
-      <div>{item.date}</div>
-      <div>{item.author}</div>
+    <div className={activeNote.id === item.id ? styles.noteItemActive : styles.noteItem} onClick={setActiveNoteListener}>
+      <h3>{item.title}</h3>
+      <div className={styles.descWrapper}>
+        <span>{item.date}</span>
+        <span className={styles.description}>{item.description}</span>
+      </div>
     </div>
   );
 }

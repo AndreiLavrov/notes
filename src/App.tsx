@@ -1,18 +1,23 @@
 import React from 'react';
+import { Container } from '@mui/material';
 
-import ActiveNote from 'src/components/ActiveNote';
-import NotesList from 'src/components/NotesList';
-import Tools from 'src/components/Tools';
-import 'src/App.css';
+import ActiveNote from 'src/components/activeNote/ActiveNote';
+import NotesList from 'src/components/notesList/NotesList';
+import Tools from 'src/components/tools/Tools';
+import './App.scss';
+import styles from './App.module.scss';
+
 
 function App() {
   return (
-    <div className="app">
+    <div className={styles.app}>
       <Tools />
-      <div className="notesWrapper">
-        <NotesList />
-        <ActiveNote />
-      </div>
+      <Container maxWidth="xl">
+        <div className={styles.notesWrapper}>
+          <NotesList />
+          <ActiveNote />
+        </div>
+      </Container>
     </div>
   );
 }

@@ -1,0 +1,11 @@
+.toolsWrapper {
+  padding: 10px 0;
+  background-color: var(--color-lightgray);
+}
+
+.tools {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
