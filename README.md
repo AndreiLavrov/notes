@@ -4,7 +4,7 @@
 
 ## Online version
 
-[Psychology notes](https://clock-livid.vercel.app/)
+[Psychology notes](https://psychologynotes.vercel.app/)
 
 ## Installation
 
